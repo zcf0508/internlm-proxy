@@ -15,6 +15,12 @@ pnpm install
 
 And then, chatting will work!
 
+## Docker
+
+```
+docker build -t internlm-proxy .
+```
+
 # License
 
 MIT
