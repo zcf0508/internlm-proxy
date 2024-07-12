@@ -1,4 +1,4 @@
-export async function newChat(key?: string) {
+export async function newChat(key: string) {
   const res = await fetch('https://internlm-chat.intern-ai.org.cn/puyu/chats', {
     method: 'POST',
     headers: {

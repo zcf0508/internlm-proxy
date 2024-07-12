@@ -84,6 +84,7 @@ app.post('/chat/completions', async (c, next) => {
                   choices:[
                     {
                       delta: {
+                        role: "assistant",
                         content: delta
                       }
                     }
