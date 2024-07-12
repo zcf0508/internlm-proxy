@@ -20,6 +20,8 @@ function createSSEResponse(chatId: string) {
 }
 
 app.post('/chat/completions', async (c, next) => {
+  const key = c.req.header()['authorization']?.split('Bearer ')[1] ?? process.env.INTERNLM_API_KEY
+
   const body = await c.req.json<PromptJSON>()
 
   let model = 'internlm-chat'
@@ -30,7 +32,7 @@ app.post('/chat/completions', async (c, next) => {
 
   const prompt = body.messages.map(m => `${m.role}: ${m.content}`).join('\n\n---\n\n')
 
-  const chatId = await newChat()
+  const chatId = await newChat(key)
 
   /** raw response */
   const oRes = await fetch(`https://${model}.intern-ai.org.cn/puyu/chats/${chatId}/records/generate`, {
@@ -39,8 +41,8 @@ app.post('/chat/completions', async (c, next) => {
       'content-type': 'text/event-stream',
       'accept': 'text/event-stream',
       'cache-control': 'no-cache',
-      'authorization': `Bearer ${process.env.INTERNLM_API_KEY}`,
-      'cookie': `uaa-token=${process.env.INTERNLM_API_KEY}; is-login=1`,
+      'authorization': `Bearer ${key}`,
+      'cookie': `uaa-token=${key}; is-login=1`,
       'prompt': encodeURIComponent(prompt),
     },
   })

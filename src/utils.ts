@@ -1,11 +1,11 @@
-export async function newChat() {
+export async function newChat(key?: string) {
   const res = await fetch('https://internlm-chat.intern-ai.org.cn/puyu/chats', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json, text/plain, */*',
-      'Authorization': `Bearer ${process.env.INTERNLM_API_KEY}`,
-      'cookie': `uaa-token=${process.env.INTERNLM_API_KEY}; is-login=1`,
+      'Authorization': `Bearer ${key}`,
+      'cookie': `uaa-token=${key}; is-login=1`,
     },
   }).then(res => res.json())
 
