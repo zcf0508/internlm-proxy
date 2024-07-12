@@ -1,5 +1,5 @@
-export async function newChat(key: string) {
-  const res = await fetch('https://internlm-chat.intern-ai.org.cn/puyu/chats', {
+export async function newChat(model: 'internlm-chat' | 'internvl', key: string) {
+  const res = await fetch(`https://${model}.intern-ai.org.cn/puyu/chats`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

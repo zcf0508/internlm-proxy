@@ -24,7 +24,7 @@ app.post('/chat/completions', async (c, next) => {
 
   const body = await c.req.json<PromptJSON>()
 
-  let model = 'internlm-chat'
+  let model = 'internlm-chat' as 'internlm-chat' | 'internvl'
 
   if(['internlm-chat', 'internvl'].includes(body.model)) {
     model = body.model
@@ -32,7 +32,7 @@ app.post('/chat/completions', async (c, next) => {
 
   const prompt = body.messages.map(m => `${m.role}: ${m.content}`).join('\n\n---\n\n')
 
-  const chatId = await newChat(key)
+  const chatId = await newChat(model, key)
 
   /** raw response */
   const oRes = await fetch(`https://${model}.intern-ai.org.cn/puyu/chats/${chatId}/records/generate`, {
