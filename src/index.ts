@@ -106,6 +106,34 @@ app.post('/chat/completions', async (c, next) => {
   })
 })
 
+app.get('/models', async (c) => {
+  return c.json({
+    object: "list",
+    data: [
+      {
+        "id": "internlm-chat",
+        "object": "model",
+        "created": 1677649963,
+        "owned_by": "intern-ai",
+        "permission": null,
+        "root": null,
+        "parent": null,
+        "price": null
+      },
+      {
+        "id": "internvl",
+        "object": "model",
+        "created": 1677649963,
+        "owned_by": "intern-ai",
+        "permission": null,
+        "root": null,
+        "parent": null,
+        "price": null
+      },
+    ],
+  })
+})
+
 const port = process.env.PORT ? Number(process.env.PORT) : 3000
 
 console.log(`Server is running on port ${port}`)
